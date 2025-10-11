@@ -10,5 +10,12 @@ Create a server
 -Difference between caret and tilde (^ vs ~)
 
 
-
+-initialize git
+-.gitignore
+-Create a remote repo on github
+-Push all code to remote origin
+-Play with routes and extension (Order of the route is matter)
+-install Postman
+-create workspace and test the API and save it.
+-write logic to  handle get , POST, PUT , DELETE.
 
