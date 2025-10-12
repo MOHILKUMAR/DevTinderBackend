@@ -2,62 +2,25 @@ const express = require("express");
 
 const app = express();
 
-const { adminAuth , UserAuth } = require("./middlewares/auth");
+// +++++++++++++++++++++ERROR HANDLE ++++++++++++++++++++++++
+app.get("/getUserData", (req, res) => {
 
-app.use("/admin", adminAuth);
-// app.use("/user" , UserAuth);
-
-// suppose there is the login api which we do not need to take the auth 
-app.post("/user/loggin", (req,res) => {
-    res.send("User Data sent")
-} )
-
-// we can also wirte like that it is safe 
-app.get("/user/data", UserAuth,  (req, res) => {
+    try{
+    throw new Error("sflfj");
     res.send("user data");
+    }
+    catch(err){
+    res.status(500).send("something went wrong"); 
+    }
 })
 
 
-// app.use("/admin", (req, res, next) => {
-//    console.log("Admin auth is getting checked");
-//    const token = "xyz";
-//    const isAdminAuthorized = token === "xy" // or "xyz";
-//    if(!isAdminAuthorized){
-//      res.status(401).send("Unauthorized");
-//    } 
-//    else{
-//     next()
-//    }
-
-// });
-app.get("/admin/getAllData", (req, res) => {
-    res.send("All data sent");
-});
-
-// app.get("/admin/getAllData", (req, res) => {
-//     const token  = "xydz";
-//     const isAdminAuthorized = token ==="xyz";
-//      if(isAdminAuthorized){
-//           res.send("All Data sent");
-
+// wildcard to handle the error 
+// app.use("/", (err ,req, res, next ) => {
+//     if(err) {
+//         res.status(500).send("something went wrong"); 
 //     }
-//     else{
-//         res.status(401).send("Unauthorized request");
-//     }
-  
 // });
-
-app.get("/admin/deleteUser", (req, res) => {
-    res.send("Deleted a user");
-})
-
-// what if i create the userApi which is not authorized by the admin middlewares.Is it protected or not 
-//Ans => No,
-
-
-// app.get("/user", (req, res) => {
-//     res.send("user data");
-// })
 
 
 // Start the server
@@ -73,9 +36,66 @@ app.listen(7777, () => {
 
 
 
+// ++++++++++++++Middlewares+++++++++++++++++++++++++++++++
+
+// const { adminAuth , UserAuth } = require("./middlewares/auth");
+
+// app.use("/admin", adminAuth);
+// app.use("/user" , UserAuth);
+
+// suppose there is the login api which we do not need to take the auth 
+// app.post("/user/loggin", (req,res) => {
+//     res.send("User Data sent")
+// } )
+
+// we can also wirte like that it is safe 
+// app.get("/user/data", UserAuth,  (req, res) => {
+//     res.send("user data");
+// })
 
 
+// app.use("/admin", (req, res, next) => {
+//    console.log("Admin auth is getting checked");
+//    const token = "xyz";
+//    const isAdminAuthorized = token === "xy" // or "xyz";
+//    if(!isAdminAuthorized){
+//      res.status(401).send("Unauthorized");
+//    } 
+//    else{
+//     next()
+//    }
 
+// });
+// app.get("/admin/getAllData", (req, res) => {
+//     res.send("All data sent");
+// });
+
+// app.get("/admin/getAllData", (req, res) => {
+//     const token  = "xydz";
+//     const isAdminAuthorized = token ==="xyz";
+//      if(isAdminAuthorized){
+//           res.send("All Data sent");
+
+//     }
+//     else{
+//         res.status(401).send("Unauthorized request");
+//     }
+  
+// });
+
+// app.get("/admin/deleteUser", (req, res) => {
+//     res.send("Deleted a user");
+// })
+
+// what if i create the userApi which is not authorized by the admin middlewares.Is it protected or not 
+//Ans => No,
+
+
+// app.get("/user", (req, res) => {
+//     res.send("user data");
+// })
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
