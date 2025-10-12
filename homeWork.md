@@ -18,4 +18,5 @@ Create a server
 -install Postman
 -create workspace and test the API and save it.
 -write logic to  handle get , POST, PUT , DELETE.
-
+- Reading the query params in the routes
+-Reading the Dynamic routes

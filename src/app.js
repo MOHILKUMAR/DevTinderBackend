@@ -2,6 +2,83 @@ const express = require("express");
 
 const app = express();
 
+const { adminAuth , UserAuth } = require("./middlewares/auth");
+
+app.use("/admin", adminAuth);
+// app.use("/user" , UserAuth);
+
+// suppose there is the login api which we do not need to take the auth 
+app.post("/user/loggin", (req,res) => {
+    res.send("User Data sent")
+} )
+
+// we can also wirte like that it is safe 
+app.get("/user/data", UserAuth,  (req, res) => {
+    res.send("user data");
+})
+
+
+// app.use("/admin", (req, res, next) => {
+//    console.log("Admin auth is getting checked");
+//    const token = "xyz";
+//    const isAdminAuthorized = token === "xy" // or "xyz";
+//    if(!isAdminAuthorized){
+//      res.status(401).send("Unauthorized");
+//    } 
+//    else{
+//     next()
+//    }
+
+// });
+app.get("/admin/getAllData", (req, res) => {
+    res.send("All data sent");
+});
+
+// app.get("/admin/getAllData", (req, res) => {
+//     const token  = "xydz";
+//     const isAdminAuthorized = token ==="xyz";
+//      if(isAdminAuthorized){
+//           res.send("All Data sent");
+
+//     }
+//     else{
+//         res.status(401).send("Unauthorized request");
+//     }
+  
+// });
+
+app.get("/admin/deleteUser", (req, res) => {
+    res.send("Deleted a user");
+})
+
+// what if i create the userApi which is not authorized by the admin middlewares.Is it protected or not 
+//Ans => No,
+
+
+// app.get("/user", (req, res) => {
+//     res.send("user data");
+// })
+
+
+// Start the server
+app.listen(7777, () => {
+    console.log("Server is listening on port 7777");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // app.use("/", (req, res) =>  {
 //     res.send("Hello from the Dashboard");
 // })
@@ -42,22 +119,75 @@ const app = express();
 //     res.send("hahahahahah")
 // })
 
-app.get("/user", (req, res) => {
-    res.send({firstName: "Mohil" , 
-        lastName: "Kumar"
-    })
-})
+// app.get("/user", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
 
-app.post("/user", (req , res) => {
-    res.send("Data is successfully saved to the database!");
-} )
+// app.post("/user", (req , res) => {
+//     res.send("Data is successfully saved to the database!");
+// } )
 
-app.delete("/user", (req, res) => {
-    res.send("deleted successfully")
-})
+// app.delete("/user", (req, res) => {
+//     res.send("deleted successfully")
+// })
+
+// app.get("/ab?c", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+// app.get("/ab+c", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+// app.get("/ab*c", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+// app.get("/a(bc)?d", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+//regex 
+
+// app.get("/a/", (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+// app.get(/.*fly$/, (req, res) => {
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+// req.query
+// app.get("/user", (req, res) => {
+//        console.log(req.query)
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
+
+//req.params
+
+// app.get("/user/:userId/:name", (req, res) => 
+//     {
+//        console.log(req.params) 
+//     res.send({firstName: "Mohil" , 
+//         lastName: "Kumar"
+//     })
+// })
 
 
-// Start the server
-app.listen(7777, () => {
-    console.log("Server is listening on port 7777");
-});
+
+
