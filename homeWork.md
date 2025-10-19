@@ -33,3 +33,5 @@ Push some documents using Api calls from postman
 - Js oject vs json 
 - Add the express.json middleware to your app
 - Make your signup Api dynamic to recieve data from the end user
+-APi - get user by email
+-Api - Feed Api = Get/feed - get all the users from the database
