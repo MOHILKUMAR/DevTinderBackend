@@ -29,3 +29,7 @@ Create a server
 -Create Post /signup Api to add data to database
 Push some documents using Api calls from postman 
 -Error handling with try and catch;
+
+- Js oject vs json 
+- Add the express.json middleware to your app
+- Make your signup Api dynamic to recieve data from the end user
