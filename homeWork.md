@@ -20,3 +20,12 @@ Create a server
 -write logic to  handle get , POST, PUT , DELETE.
 - Reading the query params in the routes
 -Reading the Dynamic routes
+
+-Create a free cluster on mongoDb offical website (Mongo atlas);
+-install mongoose library 
+-Connect your application to the Database "Connection -Url"/devTinder;
+-Call the connectDb function and connect to database before starting application on 7777
+-Create a userschema & userModel;
+-Create Post /signup Api to add data to database
+Push some documents using Api calls from postman 
+-Error handling with try and catch;
