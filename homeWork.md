@@ -35,3 +35,6 @@ Push some documents using Api calls from postman
 - Make your signup Api dynamic to recieve data from the end user
 -APi - get user by email
 -Api - Feed Api = Get/feed - get all the users from the database
+-create the Api  get the data by the Id (Use findById);
+-How to delete the data; (Fi)
+-How to update the data;
