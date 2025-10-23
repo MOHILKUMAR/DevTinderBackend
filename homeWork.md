@@ -49,3 +49,7 @@ Push some documents using Api calls from postman
 - Add Timestamps to the userSchema
 -Add API level  validation on patch request @ signup post API.
 - DATA sanitizing : Add API validation for each field.
+
+-Install validator 
+-explore the validator library functions and use for password , email;
+-Never TRUST req.body
