@@ -47,3 +47,5 @@ Push some documents using Api calls from postman
 - Create a custom validate functions for gender
 -Improve the Db Schema - PUT all appropite validations on each field in Schema;
 - Add Timestamps to the userSchema
+-Add API level  validation on patch request @ signup post API.
+- DATA sanitizing : Add API validation for each field.
