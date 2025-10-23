@@ -38,3 +38,12 @@ Push some documents using Api calls from postman
 -create the Api  get the data by the Id (Use findById);
 -How to delete the data; (Fi)
 -How to update the data;
+-Create the API for update the user with the emailId.
+
+
+-Explore Schema type options from the documention
+-Add required, unique, lowerCase, min, minLength, Trim
+-Add default
+- Create a custom validate functions for gender
+-Improve the Db Schema - PUT all appropite validations on each field in Schema;
+- Add Timestamps to the userSchema
