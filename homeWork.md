@@ -53,3 +53,10 @@ Push some documents using Api calls from postman
 -Install validator 
 -explore the validator library functions and use for password , email;
 -Never TRUST req.body
+
+-Validate in signUp API
+-Install bcrypt package
+-create PasswordHash using bcrypt.hash & save the user is excrupted password
+-create login API 
+-Valid the data and compare password
+-show the error message is invaild creadentials

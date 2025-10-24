@@ -2,13 +2,28 @@ const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const User = require("./models/user");
+const {validateSignUpData} = require("./utils/validation");
+const  bcrypt = require("bcrypt");
 
 app.use(express.json());
 
+// explaination encrption 
+//password is mohil123@ fdfdsfklfldsfldsfdsf@##@#dfd
+
+
 app.post("/signup", async (req, res) => {
 
-    // console.log(req.body)
+  try{
+ //Validation of data
+validateSignUpData(req);
 
+const  { firstName, lastName, emailId,  password} = req.body;
+
+ //Encrypt the password
+  const passwordHash = await bcrypt.hash(password, 10)
+console.log(passwordHash);
+
+    // console.log(req.body)
     // Creating a new indstance of the User model
     // const userObj = {
     //     firstName : "Virat",
@@ -26,13 +41,45 @@ app.post("/signup", async (req, res) => {
     //     // _id: "6"  do not play with it
     // });
 
-    const user = new User(req.body);
-    try{
+    // const user = new User(req.body);
+
+     const user = new User({
+        firstName,
+        lastName,
+        emailId,
+        password  : passwordHash,
+        // _id: "6"  do not play with it
+    });
+    
         await user.save();
          res.send("User added successfully")
     }catch (err) {
-        res.status(400).send("Error saving the user:" + err.message)
+        res.status(400).send("Error:" + err.message)
     }
+})
+
+
+app.post("/login", async (req, res) => {
+  try{
+    const {emailId, password} = req.body;
+
+     const user = await User.findOne({emailId: emailId});
+
+     if(!user){
+      throw new Error("Invaild Credentails");
+     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password); // bcrypt.compare  return boolean value.
+     
+     if(isPasswordValid){
+      res.send("Login Successful!!")
+     }else{
+       throw new Error("Invaild Credentails")
+     }
+  
+  }catch(err){
+   res.status(400).send("Error:" + err.message);
+  }
 })
 
 
