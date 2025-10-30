@@ -4,9 +4,11 @@ const app = express();
 const User = require("./models/user");
 const {validateSignUpData} = require("./utils/validation");
 const  bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
-
+app.use(cookieParser());
 // explaination encrption 
 //password is mohil123@ fdfdsfklfldsfldsfdsf@##@#dfd
 
@@ -72,7 +74,17 @@ app.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password); // bcrypt.compare  return boolean value.
      
      if(isPasswordValid){
-      res.send("Login Successful!!")
+       
+       // create  a JWT token
+       const token = await jwt.sign({_id: user._id}, "DEV@TINDER#343");
+      //  console.log(token);
+
+
+       //ADD the token to cookies and send the response back to the user
+       res.cookie("token", token);
+       res.send("Login Successfull !!!")
+
+    
      }else{
        throw new Error("Invaild Credentails")
      }
@@ -82,6 +94,32 @@ app.post("/login", async (req, res) => {
   }
 })
 
+
+app.get("/profile", async (req, res )=> {
+  try{
+  const cookies = req.cookies;
+  const {token} = cookies;
+  if(!token){
+    throw new Error("Invaild token ")
+  }
+ //validation my token 
+ const decodedMessage = await jwt.verify(token, "DEV@TINDER#343")
+
+//  console.log(decodedMessage);
+ const {_id} = decodedMessage;
+ 
+//  console.log(_id);
+ const user  = await User.findById(_id);
+//  console.log(user);
+ if(!user){
+  throw new Error("User dose not exists");
+ }
+  // console.log(cookies)
+res.send(user);
+}catch(err){
+   res.status(400).send("Error:" + err.message);
+  }
+})
 
 // Get the user from database by the email
 app.get("/user" , async (req , res)=> {

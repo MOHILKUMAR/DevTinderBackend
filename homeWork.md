@@ -60,3 +60,11 @@ Push some documents using Api calls from postman
 -create login API 
 -Valid the data and compare password
 -show the error message is invaild creadentials
+
+
+-install cookies-parse
+-just send a dummy cookies to user 
+-create GET /profile API and Check if you get the cookies back
+-install jwt - jsonwebtoken
+-In Login api, after email and password validation , create a jwt token and send it to user in coolies
+-read the cookies inside your profile API and find the login user 
