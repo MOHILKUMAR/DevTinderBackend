@@ -68,3 +68,8 @@ Push some documents using Api calls from postman
 -install jwt - jsonwebtoken
 -In Login api, after email and password validation , create a jwt token and send it to user in coolies
 -read the cookies inside your profile API and find the login user 
+-userAuth Middleware 
+-Add the userAuth middleware in profile api and a new connectionRequest API.
+-set the expiry of the jwt token and cookies to 7 days.
+-create scheme method to getJWT()
+-create USERscheme method to compare password(PasswordInputBYUser = Name);

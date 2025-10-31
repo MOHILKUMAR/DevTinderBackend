@@ -72,22 +72,23 @@ app.post("/login", async (req, res) => {
       throw new Error("Invaild Credentails");
      }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password); // bcrypt.compare  return boolean value.
+    const isPasswordValid = await user.validatePassword(password) // bcrypt.compare  return boolean value.
      
      if(isPasswordValid){
        
        // create  a JWT token
-       const token = await jwt.sign({_id: user._id}, "DEV@Tinder$790", 
-        { 
-          // expiresIn: "7d", //tokens expires.
-          // expiresIn: "1h",
-          // expiresIn: "0d",
+      //  const token = await jwt.sign({_id: user._id}, "DEV@Tinder$790", 
+      //   { 
+      //     expiresIn: "7d", //tokens expires.
+      //     // expiresIn: "1h",
+      //     // expiresIn: "0d",
           
 
-         });
+      //    });
       //  console.log(token);
 
-
+          const token = await user.getJWT();
+    
        //ADD the token to cookies and send the response back to the user
        res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
