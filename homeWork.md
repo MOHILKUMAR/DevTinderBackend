@@ -73,3 +73,11 @@ Push some documents using Api calls from postman
 -set the expiry of the jwt token and cookies to 7 days.
 -create scheme method to getJWT()
 -create USERscheme method to compare password(PasswordInputBYUser = Name);
+
+-Explore tinder APIs
+-Create a Lists of all API 
+-Group multiple routes under respective routers
+-Read documentation for express.router
+-Create router folder for managing auth, profile , request  routers 
+-create authRouter, ProfileRouter, requestRouter
+Import these routers in app.js

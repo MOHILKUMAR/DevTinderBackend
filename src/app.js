@@ -1,147 +1,17 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
-const User = require("./models/user");
-const {validateSignUpData} = require("./utils/validation");
-const  bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
-const { userAuth } = require("./middlewares/auth.js");
-
 app.use(express.json());
 app.use(cookieParser());
-// explaination encrption 
-//password is mohil123@ fdfdsfklfldsfldsfdsf@##@#dfd
+const jwt = require("jsonwebtoken");
+const authRouter = require("./routes/auth");
+const profileRouter = require("./routes/profile");
+const request = require("./routes/request");
 
-
-app.post("/signup", async (req, res) => {
-
-  try{
- //Validation of data
-validateSignUpData(req);
-
-const  { firstName, lastName, emailId,  password} = req.body;
-
- //Encrypt the password
-  const passwordHash = await bcrypt.hash(password, 10)
-console.log(passwordHash);
-
-    // console.log(req.body)
-    // Creating a new indstance of the User model
-    // const userObj = {
-    //     firstName : "Virat",
-    //     lastName  : "Kohil",
-    //     emailId   : "mohil234@gmail.com",
-    //     password  : "mohil@123"
-    // }
-    // const user = new User(userObj);
-
-    // const user = new User({
-    //     firstName : "Virat",
-    //     lastName  : "Kohil",
-    //     emailId   : "mohil234@gmail.com",
-    //     password  : "mohil@123",
-    //     // _id: "6"  do not play with it
-    // });
-
-    // const user = new User(req.body);
-
-     const user = new User({
-        firstName,
-        lastName,
-        emailId,
-        password  : passwordHash,
-        // _id: "6"  do not play with it
-    });
-    
-        await user.save();
-         res.send("User added successfully")
-    }catch (err) {
-        res.status(400).send("Error:" + err.message)
-    }
-})
-
-
-app.post("/login", async (req, res) => {
-  try{
-    const {emailId, password} = req.body;
-
-     const user = await User.findOne({emailId: emailId});
-
-     if(!user){
-      throw new Error("Invaild Credentails");
-     }
-
-    const isPasswordValid = await user.validatePassword(password) // bcrypt.compare  return boolean value.
-     
-     if(isPasswordValid){
-       
-       // create  a JWT token
-      //  const token = await jwt.sign({_id: user._id}, "DEV@Tinder$790", 
-      //   { 
-      //     expiresIn: "7d", //tokens expires.
-      //     // expiresIn: "1h",
-      //     // expiresIn: "0d",
-          
-
-      //    });
-      //  console.log(token);
-
-          const token = await user.getJWT();
-    
-       //ADD the token to cookies and send the response back to the user
-       res.cookie("token", token, {
-        expires: new Date(Date.now() + 8 * 3600000),
-       });
-       res.send("Login Successfull !!!")
-
-    
-     }else{
-       throw new Error("Invaild Credentails")
-     }
-  
-  }catch(err){
-   res.status(400).send("Error:" + err.message);
-  }
-})
-
-
-app.get("/profile", userAuth, async (req, res )=> {
-  try{
-//   const cookies = req.cookies;
-//   const {token} = cookies;
-//   if(!token){
-//     throw new Error("Invaild token ")
-//   }
-//  //validation my token 
-//  const decodedMessage = await jwt.verify(token, "DEV@TINDER#343")
-
-// //  console.log(decodedMessage);
-//  const {_id} = decodedMessage;
- 
-//  console.log(_id);
-  const user  =  req.user;
-//  console.log(user);
-//  if(!user){
-//   throw new Error("User dose not exists");
-//  }
-  // console.log(cookies)
-res.send(user);
-}catch(err){
-   res.status(400).send("Error:" + err.message);
-  }
-})
-
-app.post("/sendConnectionRequest", userAuth, async (req, res) =>{
-  
-  const user = req.user;
-
-  //sending a connection resquest
-  console.log("Sending a connection resqest");
-  
-  res.send(user?.firstName + " send the connection request");
- 
-})
+app.use("/", authRouter);
+app.use("/", profileRouter);
+app.use("/", request);
 
 connectDB()
   .then(() => {
