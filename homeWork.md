@@ -81,3 +81,9 @@ Push some documents using Api calls from postman
 -Create router folder for managing auth, profile , request  routers 
 -create authRouter, ProfileRouter, requestRouter
 Import these routers in app.js
+
+
+-Create Post /logot API
+-Create Patch/profile/edit
+-Create Patch/profile/password API  => forgot password API
+-Make you validate all data in every POST , Patch API.
