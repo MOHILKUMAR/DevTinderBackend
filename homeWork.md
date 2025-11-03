@@ -82,8 +82,16 @@ Push some documents using Api calls from postman
 -create authRouter, ProfileRouter, requestRouter
 Import these routers in app.js
 
-
+-Create Connection Request Scheme 
+-Send connection Request API
+-proper validation of data
+-Think about all corner cases
+-read more about the $or and $& 
 -Create Post /logot API
 -Create Patch/profile/edit
 -Create Patch/profile/password API  => forgot password API
 -Make you validate all data in every POST , Patch API.
+-scheme.pre("save") function. 
+-Read the compound index  and index in mongoDb.
+-why do we need the index in db
+-what is the advantage and disadvantage of creating the index?

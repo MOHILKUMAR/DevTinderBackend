@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : true,
         minLength: 3,
+        index: true,
     },
     lastName : {
         type: String,
@@ -69,6 +70,8 @@ const userSchema = new mongoose.Schema({
 }
 );
 
+// compound index (which make are query faster).
+userSchema.index({firstName:1, lastName : 1,});
 
 userSchema.methods.getJWT = async function () {
      const user = this;
