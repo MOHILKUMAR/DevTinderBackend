@@ -11,8 +11,16 @@ Profile Router
 -Patch/Profile/password
 
 connectionsRequestRouter
--Post /request/send/interested/ :userId
+Single api for the interested or ignored.
+-Post /request/send/:status/:userId
+
+-Post /request/send/interested/:userId
 -Post /request/send/ignored/:userId
+
+
+Single api for the Accepted or Rejected.
+-Post /request/review/:status/:requestId 
+
 -Post /request/review/accepted/:requestId
 -Post /requset/review/rejected/:requestId
 
