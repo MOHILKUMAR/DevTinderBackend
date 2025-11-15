@@ -1,17 +1,32 @@
 const express = require("express");
 const connectDB = require("./config/database");
-const app = express();
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
+
+const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.options(/^\/.*/, cors());
 app.use(express.json());
 app.use(cookieParser());
+
 const jwt = require("jsonwebtoken");
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const request = require("./routes/request");
+const userRouter = require("./routes/user");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", request);
+app.use("/", userRouter);
 
 connectDB()
   .then(() => {
@@ -25,57 +40,9 @@ connectDB()
     console.error("Database cannot be connected");
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // Get the user from database by the email
 // app.get("/user" , async (req , res)=> {
- 
+
 //  const userEmail = req.body.emailId;
 //  try{
 //   // console.log(userEmail);
@@ -108,7 +75,7 @@ connectDB()
 //     }catch (err) {
 //       res.status(400).send("Something went wrong")
 //     }
-// }) 
+// })
 
 // //delete a user from the database;
 // app.delete("/user", async(req, res)=> {
@@ -122,8 +89,7 @@ connectDB()
 //   }
 // });
 
-
-// // update the user data 
+// // update the user data
 // app.patch("/user/:userId", async(req, res) => {
 
 //   const userId = req.params?.userId;
@@ -134,10 +100,10 @@ connectDB()
 
 //   const ALLOWED_UPADTES = [
 //     // "userId",
-//     "skills", 
-//     "photoUrl", 
+//     "skills",
+//     "photoUrl",
 //     "about",
-//      "gender", 
+//      "gender",
 //      "age"
 //   ];
 
@@ -160,54 +126,6 @@ connectDB()
 //     res.status(400).send("Update Failed " + err.message);
 //   }
 // })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // +++++++++++++++++++++ERROR HANDLE ++++++++++++++++++++++++
 // app.get("/getUserData", (req, res) => {

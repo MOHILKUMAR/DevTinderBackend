@@ -84,6 +84,7 @@ requestRouter.post(
       const connectionRequest = await ConnectionRequestModel.findOne({
         _id: requestId,
         toUserId : loggedInUser._id,
+        // toUserId : loggedInUser,
         status: "interested",
       })
        

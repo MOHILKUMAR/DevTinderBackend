@@ -95,3 +95,29 @@ Import these routers in app.js
 -Read the compound index  and index in mongoDb.
 -why do we need the index in db
 -what is the advantage and disadvantage of creating the index?
+
+
+
+-Write code with proper validations for Post /request/review/:status/:requestId
+-Thought process -Post  Vs GET
+-Read about ref and populate 
+-Create Get /user/requests/received  with all the checks
+-Create Get /User/connections 
+
+-logic for Get/ feed API
+-Explore the $nin , $and, $ne other query operators
+
+
+
+-Pagination
+
+<!-- notes -->
+/feed?page=1&page=10==> first 10 users1-10;  .skip(0) & limit(10) 
+
+/feed?page=2&limit=10 => 11 - 20   .skip(10) & limit(10) 
+
+/feed?page=3&limit=10 => 21 - 30   .skip(10) & limit(10) 
+
+.skip(0) & limit(10) == it  will give me first 10 users
+
+skip = (page-1)*limit;
