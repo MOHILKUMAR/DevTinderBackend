@@ -121,3 +121,14 @@ Import these routers in app.js
 .skip(0) & limit(10) == it  will give me first 10 users
 
 skip = (page-1)*limit;
+
+
+
+
+#sending Emails via SES
+   -create a IAM User
+   -Give Access to Amazon SESFullAccess
+   -Amozon SES : CREATE an Identity 
+   -Verify your domain name 
+   -Verify an email address
+   -install aws sdk 

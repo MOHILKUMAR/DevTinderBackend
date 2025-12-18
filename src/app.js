@@ -2,6 +2,8 @@ const express = require("express");
 const connectDB = require("./config/database");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const  dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 app.use(
@@ -28,11 +30,13 @@ app.use("/", profileRouter);
 app.use("/", request);
 app.use("/", userRouter);
 
+
+
 connectDB()
   .then(() => {
     console.log("Database connection completed");
     // Start the server
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is listening on port 7777");
     });
   })

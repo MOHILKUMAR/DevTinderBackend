@@ -5,6 +5,7 @@ const { Connection } = require("mongoose");
 const ConnectionRequest = require("../models/connectionReqest");
 const User = require("../models/user");
 const ConnectionRequestModel = require("../models/connectionReqest");
+const sendEmail = require("../utils/sendEmail");
 
 requestRouter.post(
   "/request/send/:status/:toUserId",
@@ -49,6 +50,10 @@ requestRouter.post(
       });
 
       const data = await connectionRequest.save();
+
+      const emailRes = await sendEmail.run();
+      console.log(emailRes);
+
       res.json({
         message:
           req.user.firstName + " is " + status + " in " + toUser.firstName,
